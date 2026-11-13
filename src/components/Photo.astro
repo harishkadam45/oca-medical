@@ -1,0 +1,28 @@
+---
+/** Renders a real photo when `src` is set, otherwise a labelled gradient placeholder. */
+interface Props {
+  src: string | null;
+  alt: string;
+  label: string;
+  class?: string;
+}
+
+const { src, alt, label, class: className = '' } = Astro.props;
+---
+
+{
+  src ? (
+    <img src={src} alt={alt} loading="lazy" class:list={['h-full w-full object-cover', className]} />
+  ) : (
+    <div
+      role="img"
+      aria-label={alt}
+      class:list={[
+        'grid h-full w-full place-items-center bg-linear-to-br from-sky via-navy to-navy-deep p-4 text-center text-xs font-semibold uppercase tracking-widest text-white/70',
+        className,
+      ]}
+    >
+      {label}
+    </div>
+  )
+}
